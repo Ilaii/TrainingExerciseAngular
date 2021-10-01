@@ -1,23 +1,35 @@
 <div class="container text-center">
   <h1>Album Searcher</h1>
-  <input type="text" placeholder="Insert artist name here" [(ngModel)] = "artistName">
-  <button (click) = 'onButtonClick()'>Search</button>
+  <input type="text" class = "form-control" placeholder="Insert artist name here" [(ngModel)] = "artistName">
+  <br />
+  <button class = "btn btn-success" (click) = 'onButtonClick()'>Search</button>
+  <br />
+  <br />
 </div>
 
 
 <div class="container">
 <div *ngIf="hasSearched!=false">
-  <div class = "row row-cols-1 row-cols-md-4 g-4">
-    <div *ngFor="let album of albums" class="col">
+  <div *ngIf="showAllSelected === false">
+    <mat-paginator [length]="albums.length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="handlePage($event)"
+  >
+  </mat-paginator>
+  <button (click) = 'onAscDesc()' >Asc</button>
+  </div>
   
-    <div  class="card text-center text-dark bg-light" style="width: 10rem; height:fit-content">
-      <!-- <img src="album.artworkUrl60" class="card-img-top" alt="https://pbs.twimg.com/profile_images/1305995705631285248/jJivnXkR.jpg"> -->
-      <img src={{album.artworkUrl100}} class="card-img-top">
+
+  <div class = "row row-cols-1 row-cols-md-5 g-4">
+    <div *ngFor="let album of albums | paginate:pageSize:pageNumber"
+  class="col">
+  
+    <div  class="card text-center text-dark bg-light h-100">
+      <img src={{album.artworkUrl100}} class="card-img-top" alt="https://pbs.twimg.com/profile_images/1305995705631285248/jJivnXkR.jpg">
       <div class="card-body">
-        <h5 *ngIf = "album.collectionCensoredName.length <= 30" class="card-title">{{album.collectionCensoredName}}</h5>
-        <h5 *ngIf = "album.collectionCensoredName.length > 30" class="card-title">{{album.collectionCensoredName| slice:0:30}}...</h5>
-        <!-- <h5 class="card-title">{{album.collectionCensoredName}}</h5> -->
-        
+        <h5 *ngIf = "album.collectionCensoredName.length <= 30" class="title">{{album.collectionCensoredName}}</h5>
+        <h5 *ngIf = "album.collectionCensoredName.length > 30" class="title">{{album.collectionCensoredName| slice:0:30}}...</h5>        
         <p class="card-text">{{album.artistName}}</p>
         <p class="card-text">${{album.collectionPrice}}</p>
       </div>  
@@ -27,6 +39,12 @@
   </div>
 
 </div>
+<div *ngIf="showAllSelected===false" class = "container text-center">
+  <br />
+  <button  (click) = 'onShowAll()' class = "btn btn-primary btn-lg">Show all</button> <br />
+</div>
+
+
 </div>
 
 <div *ngIf="hasSearched===false">
