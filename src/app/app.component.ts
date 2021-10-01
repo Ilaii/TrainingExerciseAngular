@@ -7,15 +7,13 @@ import { PageEvent } from '@angular/material/paginator';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SortPipe,
-  PaginatePipe]
+  providers: [SortPipe]
 })
 export class AppComponent {
   title = 'trainingexerciseangular';
   constructor(
     private albumService:AlbumService,
-    private sortpipe:SortPipe,
-    private paginate:PaginatePipe
+    private sortpipe:SortPipe
     ) {    
   }
   
@@ -32,22 +30,36 @@ export class AppComponent {
 
   showAllSelected: boolean = false;
   hasSearched: boolean = false;
-  ordAsc: boolean = false;
+  public ordAsc: boolean = false;
   public albums :Array <any> = []
   
   onAscDesc(){
-    this.ordAsc = true;
-    // console.log(this.ordAsc)
+    if (this.ordAsc === false)    
+    {
+      this.ordAsc = true;
+      this.albumService.getAlbums(this.artistName).subscribe((resp: any) => {
+        this.albums = resp.results.sort((a,b) => a.collectionCensoredName.localeCompare(b.collectionCensoredName)) })
+      // return(null);
+    }
+    else
+    {
+      this.ordAsc = false;  
+      this.albumService.getAlbums(this.artistName).subscribe((resp: any) => {
+        this.albums = resp.results.sort((a,b) => b.collectionCensoredName.localeCompare(a.collectionCensoredName)) })         
+    }
+    return this.albums;
   }
 
   onButtonClick() {
     this.showAllSelected = false;
+    this.ordAsc = false;
     this.pageSize = 10;    
     this.albumService.getAlbums(this.artistName).subscribe((resp: any) => {
       this.albums = resp.results
       // console.log(resp.results)
-      this.hasSearched = true;
+      
     })
+    this.hasSearched = true;
   }
   onShowAll() {
     this.pageNumber = 1

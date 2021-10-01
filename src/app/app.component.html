@@ -17,7 +17,7 @@
                (page)="handlePage($event)"
   >
   </mat-paginator>
-  <button (click) = 'onAscDesc()' >Asc</button>
+  <button (click) = "onAscDesc()" class="btn btn-info">Order</button>
   </div>
   
 
@@ -28,8 +28,8 @@
     <div  class="card text-center text-dark bg-light h-100">
       <img src={{album.artworkUrl100}} class="card-img-top" alt="https://pbs.twimg.com/profile_images/1305995705631285248/jJivnXkR.jpg">
       <div class="card-body">
-        <h5 *ngIf = "album.collectionCensoredName.length <= 30" class="title">{{album.collectionCensoredName}}</h5>
-        <h5 *ngIf = "album.collectionCensoredName.length > 30" class="title">{{album.collectionCensoredName| slice:0:30}}...</h5>        
+        <h5 *ngIf = "album.collectionCensoredName.length <= 30" class="title-card">{{album.collectionCensoredName}}</h5>
+        <h5 *ngIf = "album.collectionCensoredName.length > 30" class="title-card">{{album.collectionCensoredName| slice:0:30}}...</h5>        
         <p class="card-text">{{album.artistName}}</p>
         <p class="card-text">${{album.collectionPrice}}</p>
       </div>  
