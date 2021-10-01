@@ -1,0 +1,22 @@
+<h1>Album Searcher</h1>
+
+<input type="text" placeholder="Insert artist name here" [(ngModel)] = "artistName">
+<button (click) = 'onButtonClick()'>Search</button>
+
+<div *ngIf="hasSearched!=false">
+  
+  <div *ngFor="let album of albums" class="card" style="width: 18rem;">
+    <img src="https://pbs.twimg.com/profile_images/1305995705631285248/jJivnXkR.jpg" class="card-img-top" alt="https://pbs.twimg.com/profile_images/1305995705631285248/jJivnXkR.jpg">
+    <div class="card-body">
+      <h5 class="card-title">{{album.collectionCensoredName}}</h5>
+      <p class="card-text">{{album.artistName}}</p>
+      <p class="card-text">{{album.collectionPrice}}</p>
+    </div>  
+  
+  </div>
+</div>
+<div *ngIf="hasSearched===false">
+  Search Results will be displayed here!
+</div>
+
+
