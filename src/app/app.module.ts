@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SortPipe } from './pipes/sort.pipe';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
